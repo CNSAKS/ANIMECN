@@ -318,7 +318,7 @@ class db
 						$row_array['msgOK'] = "Registro completado exitosamente";
 						array_push($return_arr,$row_array);
 					}else{
-						$row_array['error'] = "Ha habido un error al intentar registrar el anime 2";
+						$row_array['error'] = "Ha habido un error al intentar registrar el anime. Compruebe que no este ya en su lista";
 						$row_array['msgOK'] = "";
 						array_push($return_arr,$row_array);
 					}
