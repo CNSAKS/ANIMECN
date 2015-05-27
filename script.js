@@ -27,7 +27,6 @@ function isAuth(){
 			$("#navButtonsDiv").append(loginDiv);
 			
 			$("#settingsBtn").click(function(){
-                console.log(result[0].user)
                 $("#modalSettingsID").val(result[0].id);
 				$("#modalSettingsUsuario").val(result[0].user);
 				$("#modalSettings").modal("show");
@@ -43,7 +42,6 @@ function isAuth(){
 					  success: function(result){
 						$.noty.closeAll();
 						var n = noty({text: result[0].msgOK});
-						console.log("aja")
 						isAuth();
 					  }
 				});
@@ -80,12 +78,14 @@ $('#modalRegistro').on('hidden.bs.modal', function () {
   $("#modalRegistroIconoPass").removeClass("glyphicon-ok").addClass("glyphicon-remove");
 })
 
-$('#modalRegistro').on('hidden.bs.modal', function () {
-	$("#formLogin")[0].reset();
-});
-
 $('#modalSettings').on('hidden.bs.modal', function () {
 	$("#formSettings")[0].reset();
+	$("#modalSettingsPassAntDiv").removeClass("has-success").addClass("has-error");
+	$("#modalSettingsIconoPassAnt").removeClass("glyphicon-ok").addClass("glyphicon-remove");
+    $("#modalSettingsEmailDiv").removeClass("has-success").addClass("has-error");
+	$("#modalSettingsIconoEmail").removeClass("glyphicon-ok").addClass("glyphicon-remove");
+	$("#modalSettingsPassDiv").removeClass("has-success").addClass("has-error");
+	$("#modalSettingsIconoPass").removeClass("glyphicon-ok").addClass("glyphicon-remove");
 });
 
 $('#modalLogin').on('hidden.bs.modal', function () {
@@ -95,11 +95,15 @@ $('#modalLogin').on('hidden.bs.modal', function () {
 $('#modalAdd').on('hidden.bs.modal', function () {
 	$("#formAdd")[0].reset();
 	$("#modalAddAnime").empty();
+	$("#modalAddScoreDiv").removeClass("has-success").addClass("has-error");
+	$("#modalAddIconoScore").removeClass("glyphicon-ok").addClass("glyphicon-remove");
 	$("#modalAddCapitulos").empty();
 });
 
 $('#modalEdit').on('hidden.bs.modal', function () {
 	$("#formEdit")[0].reset();
+	$("#modalEditScoreDiv").removeClass("has-error").addClass("has-success");
+	$("#modalEditIconoScore").removeClass("glyphicon-remove").addClass("glyphicon-ok");
 	$("#modalEditCapitulos").empty();
 });
 
@@ -529,8 +533,6 @@ $( document ).ready(function() {
 	
 	$("#delBtn").click(function(){
 		var toDelete = $('#tableAnimeList').bootstrapTable('getSelections');
-		console.log(toDelete)
-		console.log(toDelete.length)
 		if(toDelete.length > 0){
 			noty({
 				text: '¿Estas seguro de eliminar los animes seleccionados?',
@@ -590,13 +592,10 @@ $( document ).ready(function() {
       dataType: "json",
 	  data:{action: 'getAll'},  
 	  success: function(result){
-        console.log(result)
 			var row = 0;
 			var toAppend ="";
 			for(var i = 0;i<result.length;i++){
-				console.log(result)
 				if(row == 0){
-					console.log("open")
 					toAppend += '<div class="row same-height">';
 					row++;
 				}else{
@@ -616,7 +615,6 @@ $( document ).ready(function() {
 				toAppend +=	'</div>'
 				toAppend +=	'</div>'
 				if(row == 3){
-					console.log("finalizando: "+result[i].name)
 					toAppend += "</div>";
 					row = 0;
 				}
