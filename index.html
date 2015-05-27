@@ -1,0 +1,313 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AnimeCN - Tu DB de anime</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="bootstrap-3.3.4-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-table-master/dist/bootstrap-table.min.css">
+<link rel="stylesheet" href="css/card.css">
+<link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+<ul class="nav nav-tabs" role="tablist">
+  <div class="pull-left" style="padding-right:5px;"><img src="logo.png" height="44"></img></div>
+  <li class="active" id="homeNav"><a href="#homeDiv" role="tab" data-toggle="tab" class="tabs">Animes</a></li>
+  <li><a href="#misAnimes" role="tab" data-toggle="tab" class="tabs" id="animeList">Mis Animes</a></li>
+  <div class="pull-right" id="navButtonsDiv">
+  <a class="btn btn-default nav-buttons" id="loginBtn">Login</a>
+  <a class="btn btn-default nav-buttons" id="registroBtn">Registro</a>
+  </div>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="homeDiv"><div class="container" id="container"></div></div>
+  <div class="tab-pane" id="misAnimes">
+  
+  <div id="toolbar">
+        <button type="button" class="btn btn-default" id="addBtn">
+            <i class="glyphicon glyphicon-plus"> Añadir</i>
+        </button>
+        <button type="button" class="btn btn-default" id="delBtn">
+            <i class="glyphicon glyphicon-trash"> Borrar</i>
+        </button>
+    
+  </div>
+  <table id="tableAnimeList"
+         data-search="true"
+         data-toolbar="#toolbar">
+  <thead>
+    <tr>
+    	<th data-field="state" data-checkbox="true"></th>
+        <th data-field="idAnime" class="col-md-8" data-searchable="false" data-visible="false"></th>
+        <th data-field="name" class="col-md-8" data-sortable="true">Nombre</th>
+        <th data-field="score" class="col-md-1" data-searchable="false" data-sortable="true">Score</th>
+        <th data-field="type" class="col-md-1" data-searchable="false" data-sortable="true">Tipo</th>
+        <th data-field="chapters" class="col-md-2" data-searchable="false">N.Capitulos</th>
+    </tr>
+    </thead>
+  </table>
+  </div>
+</div>
+
+
+</div>
+<div class="modal fade bs-example-modal-lg" id="modalDetalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalDetallesTitle">Detalles</h4>
+      </div>
+      <div class="modal-body" id="modalDetallesBody">
+        <div id="first">
+        </div>
+          <div class="row" style="border-top:1px solid #e7e7e7">
+            <div class='col-md-12'>
+            <p style="padding-top:5px;"><strong>Personajes y Dobladores</strong>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-12'>
+              <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                <!-- Bottom Carousel Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+                </ol>
+                
+                <!-- Carousel Slides / Quotes -->
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <blockquote>
+                      <div class="row">
+                        <div class="col-md-3 text-center">
+                          <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" style="width: 100px;height:100px;">
+                        </div>
+                        <div class="col-md-9">
+                          <p>Cargando</p>
+                          <small>Por favor, espere</small>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </div>
+                  
+                </div>
+                
+                <!-- Carousel Buttons Next/Prev -->
+                <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+              </div>                          
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalDetallesTitle">Registro</h4>
+      </div>
+      <div class="modal-body" id="modalRegistroBody">
+        <div>
+        	<form id="formRegistro">
+              <div class="col-md-6 col-md-offset-3">
+                  <div class="form-group has-error has-feedback" id="modalRegistroUsuarioDiv">
+                    <label class="control-label" for="modalRegistroUsuario">Usuario</label>
+                    <input type="text" class="form-control" id="modalRegistroUsuario" aria-describedby="inputSuccess2Status1" data-html="true" data-toggle="tooltip" data-placement="left" title="Solo caracteres alfanumericos </br>ej: usuario121">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" id="modalRegistroIconoUsuario" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status1" class="sr-only">(success)</span>
+                  </div>
+                  <div class="form-group has-error has-feedback" id="modalRegistroEmailDiv">
+                    <label class="control-label" for="modalRegistroEmail">Email</label>
+                    <input type="email" class="form-control" id="modalRegistroEmail" aria-describedby="inputSuccess2Statu2s" data-html="true" data-toggle="tooltip" data-placement="left" title="Solo caracteres alfanumericos y correos de gmail</br>ej: email121@gmail.com">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" id="modalRegistroIconoEmail" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                  </div>
+                  <div class="form-group has-error has-feedback" id="modalRegistroPassDiv">
+                    <label class="control-label" for="modalRegistroPass">Password</label>
+                    <input type="password" class="form-control" id="modalRegistroPass" aria-describedby="inputSuccess2Status3" data-html="true" data-toggle="tooltip" data-placement="left" title="Solo caracteres alfanumericos </br>ej: pass121">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" id="modalRegistroIconoPass" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                  </div>
+                </div>
+            </form>
+            <div style="clear:both;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modalRegistroSave">Registrar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalLoginTitle">Login</h4>
+      </div>
+      <div class="modal-body" id="modalLoginBody">
+        	<div class="col-md-6 col-md-offset-3">
+            <form id="formLogin">
+              <div class="form-group">
+                <label for="modalLoginUsuario">Usuario</label>
+                <input type="text" class="form-control" id="modalLoginUsuario" placeholder="Usuario">
+              </div>
+              <div class="form-group">
+                <label for="modalLoginPassword">Password</label>
+                <input type="password" class="form-control" id="modalLoginPassword" placeholder="Password">
+              </div>
+            </form>
+            </div>
+            <div style="clear:both;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modalLoginSave">Login</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalSettingsTitle">Configuracion de usuario</h4>
+      </div>
+      <div class="modal-body" id="modalLoginBody">
+        <div class="col-md-6 col-md-offset-3">
+        <form id="formLogin">
+          <div class="form-group">
+            <input type="hidden" value="" id="modalSettingsID">
+            <label for="modalSettingsUsuario">Usuario</label>
+            <input type="text" class="form-control" id="modalSettingsUsuario" disabled>
+          </div>
+          <div class="form-group has-error has-feedback" id="modalSettingsPassAntDiv">
+            <label class="control-label" for="modalSettingsPassAnt">Password</label>
+            <input type="password" class="form-control" id="modalSettingsPassAnt" aria-describedby="inputSuccess2Status4" data-html="true" data-toggle="tooltip" data-placement="left" title="Introduzca su anterior contraseña.">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="modalSettingsIconoPassAnt" aria-hidden="true"></span>
+            <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+          </div>
+          <div class="form-group has-error has-feedback" id="modalSettingsPassDiv">
+            <label class="control-label" for="modalSettingsPass">Nueva Password</label>
+            <input type="password" class="form-control" id="modalSettingsPass" aria-describedby="inputSuccess2Status5" data-html="true" data-toggle="tooltip" data-placement="left" title="Solo caracteres alfanumericos </br>ej: pass121">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="modalSettingsIconoPass" aria-hidden="true"></span>
+            <span id="inputSuccess2Status5" class="sr-only">(success)</span>
+          </div>
+          <div class="form-group has-error has-feedback" id="modalSettingsEmailDiv">
+            <label class="control-label" for="modalSettingsEmail">Nuevo Email</label>
+            <input type="email" class="form-control" id="modalSettingsEmail" aria-describedby="inputSuccess2Status6" data-html="true" data-toggle="tooltip" data-placement="left" title="Solo caracteres alfanumericos y correos de gmail</br>ej: email121@gmail.com">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="modalSettingsIconoEmail" aria-hidden="true"></span>
+            <span id="inputSuccess2Status6" class="sr-only">(success)</span>
+          </div>
+
+        </form>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modalSettingsSave">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalSettingsTitle">Añadir nuevo Anime</h4>
+      </div>
+      <div class="modal-body" id="modalAddBody">
+        <div class="col-md-6 col-md-offset-3">
+        <form id="formAdd" novalidate>
+          	<div class="form-group">
+              <label for="modalAddAnime">Anime</label>
+              <select id="modalAddAnime" class="form-control"></select>
+            </div>
+            <div class="form-group has-error has-feedback" id="modalAddScoreDiv">
+            <label class="control-label" for="modalAddScore">Score</label>
+            <input type="number" class="form-control" id="modalAddScore" aria-describedby="inputSuccess2Status7" data-html="true" data-toggle="tooltip" data-placement="left" title="Se admiten hasta 2 decimales separados por coma</br>ej: 5,5" min="0" max="10" step="0.1" lang="es">
+            <span class="glyphicon glyphicon-remove form-control-feedback" id="modalAddIconoScore" aria-hidden="true"></span>
+            <span id="inputSuccess2Status7" class="sr-only">(success)</span>
+          </div>
+          <div class="form-group">
+            <label for="modalAddCapitulos">Capitulos</label>
+            <select id="modalAddCapitulos" class="form-control"></select>
+          </div>
+			
+        </form>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modalAddSave">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalSettingsTitle">Editar Anime</h4>
+      </div>
+      <div class="modal-body" id="modalEditBody">
+        <div class="col-md-6 col-md-offset-3">
+        <form id="formEdit" novalidate>
+          	<div class="form-group">
+              <input type="hidden" value="" id="modalEditID">
+              <label for="modalEditAnime">Anime</label>
+              <input type="text" class="form-control" id="modalEditAnime" disabled>
+            </div>
+            <div class="form-group has-success has-feedback" id="modalEditScoreDiv">
+            <label class="control-label" for="modalEditScore">Score</label>
+            <input type="number" class="form-control" id="modalEditScore" aria-describedby="inputSuccess2Status8" data-html="true" data-toggle="tooltip" data-placement="left" title="Se admiten hasta 2 decimales separados por coma</br>ej: 5,5" min="0" max="10" step="0.1" lang="es">
+            <span class="glyphicon glyphicon-ok form-control-feedback" id="modalEditIconoScore" aria-hidden="true"></span>
+            <span id="inputSuccess2Status8" class="sr-only">(success)</span>
+          </div>
+          <div class="form-group">
+            <label for="modalEditCapitulos">Capitulos</label>
+            <select id="modalEditCapitulos" class="form-control"></select>
+          </div>
+			
+        </form>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modalEditSave">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<!-- Latest compiled and minified JavaScript -->
+<script src="jquery/jquery-2.1.4.min.js"></script>
+<script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+<script src="noty-2.3.5/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script src="bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+<script src="bootstrap-table-master/dist/locale/bootstrap-table-es-SP.min.js"></script>
+<script src="script.js"></script>
+</html>
